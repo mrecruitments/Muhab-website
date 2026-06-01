@@ -45,7 +45,7 @@
             <h2 style="text-align:center; color:var(--primary-blue); margin-top:0;">Intake Application</h2>
             
             <div class="form-group">
-                <label>Full Name (සම්පූර්ණ නම /முழுப் பெயர்)</label>
+                <label>Full Name (සම්පූර්ණ නම / முழுப் பெயர்)</label>
                 <input type="text" name="Name" required placeholder="Enter your name">
             </div>
 
@@ -93,7 +93,6 @@
 
             <div class="form-group">
                 <label>Job Sector / Role Expertise (රැකියා ක්ෂේත්‍රය / வேலைத் துறை)</label>
-                <!-- This select name perfectly matches Column H "Role" -->
                 <select name="Role" id="roleDropdown" required>
                     <option value="General Applicant">Select Sector</option>
                     <option value="Transport & Logistics">Transport & Logistics</option>
@@ -166,13 +165,10 @@
             btn.disabled = true;
             btn.innerText = "RECORDING DATA...";
 
-            const scriptURL = 'https://script.google.com/macros/s/AKfycbxfs6eHLNyZiBkCBQVfKc2ltb-FN1CDlnlXF22LtZsfAHX7az7kD1s3zb29CZ3sL2qA/exec';
+            // YOUR NEW LIVE UPDATED EXECUTABLE BACKEND
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyR0XLCrMwK2-ewRRq-R1KDDiDgU1Ld1ZXoSin0BQnoz0NBUPz9OyZGvrdZUMSVs-8T/exec';
             
-            // Generate clean native form stream directly 
             const formData = new FormData(form);
-            
-            // Backup injection for generic lowercase listeners
-            formData.append('role', form.Role.value);
 
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors'})
                 .then(response => {
