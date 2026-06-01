@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Application Intake</title>
+    
+    <!-- Cloudflare Turnstile Script API -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    
+    <style>
+        :root { --primary-blue: #1a2e5a; --phoenix-red: #e62525; --light-bg: #f8f9fa; }
+        body { font-family: -apple-system, sans-serif; margin: 0; background: var(--light-bg); padding-bottom: 60px; }
+        .sticky-header { position: sticky; top: 0; background: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; }
+        .compliance-link { color: var(--primary-blue); font-weight: bold; text-decoration: none; }
+        .form-box { background: white; max-width: 500px; margin: 30px auto; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-weight: bold; margin-bottom: 6px; color: var(--primary-blue); }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; font-size: 16px; }
+        .submit-btn { width: 100%; background: var(--phoenix-red); color: white; padding: 15px; border: none; border-radius: 5px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .submit-btn:disabled { background: #cbd5e0; cursor: not-allowed; }
+        
+        .contact-card { background: #eef2f7; padding: 15px; border-radius: 6px; margin-top: 20px; text-align: center; }
+        .action-btn { display: inline-block; padding: 10px 15px; margin: 5px; border-radius: 4px; text-decoration: none; font-weight: bold; color: white; }
+        .call-btn { background: var(--primary-blue); }
+        .wa-btn { background: #25d366; }
+        
+        /* Center widget container */
+        .turnstile-container { display: flex; justify-content: center; margin: 15px 0; }
+    </style>
+</head>
+<body>
+
+    <!-- TRILINGUAL FIXED HEADER WITH COMPLIANCE TRACKING -->
+    <header class="sticky-header">
+        <img src="logo.png" style="height:45px;" alt="MRS Logo">
+        <a href="https://www.slbfe.lk/" target="_blank" class="compliance-link">SLBFE L.L NO. 2875</a>
+    </header>
+
+    <div class="form-box">
+        <h2 style="text-align:center; color:var(--primary-blue); margin-top:0;">Intake Application</h2>
+        
+        <!-- FREE CENTRAL DATABASE INTAKE PIPELINE -->
+        <form id="recruitmentForm" action="https://script.google.com/macros/s/AKfycbxfs6eHLNyZiBkCBQVfKc2ltb-FN1CDlnlXF22LtZsfAHX7az7kD1s3zb29CZ3sL2qA/exec" method="POST">
+            
+            <div class="form-group">
+                <label>Full Name (සම්පූර්ණ නම / முழுப் பெயர்)</label>
+                <input type="text" name="Name" required placeholder="Enter your name">
+            </div>
+
+            <div class="form-group">
+                <label>WhatsApp Number (දුරකථන අංකය / வாட்ஸ்அப் எண்)</label>
+                <input type="tel" name="WhatsApp" required placeholder="e.g. 0710177889">
+            </div>
+
+            <div class="form-group">
+                <label>Age (වයස / வயது)</label>
+                <input type="number" name="Age" required min="18" max="60">
+            </div>
+
+            <div class="form-group">
+                <label>District (දිස්ත්‍රික්කය / மாவட்டம்)</label>
+                <select name="District" required>
+                    <option value="">Select District</option>
+                    <option value="Colombo">Colombo</option>
+                    <option value="Gampaha">Gampaha</option>
+                    <option value="Kalutara">Kalutara</option>
+                    <option value="Kandy">Kandy</option>
+                    <option value="Galle">Galle</option>
+                    <option value="Kurunegala">Kurunegala</option>
+                    <option value="Other">Other District</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Do you have a Passport? (පැස්පෝට් තිබේද? / பாஸ்போர்ட் இருக்கிறதா?)</label>
+                <select name="Passport" required>
+                    <option value="Yes">Yes (ඔව් / ஆம்)</option>
+                    <option value="No">No (නැත / இல்லை)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Preferred Destination (මනාප රට / விருப்பமான நாடு)</label>
+                <select name="Destination" id="destinationDropdown" required>
+                    <option value="Not Specified">Select Country</option>
+                    <option value="Kuwait">Kuwait (කුවේට්)</option>
+                    <option value="Saudi">Saudi Arabia (සෞදි අරාබිය)</option>
+                    <option value="Bahrain">Bahrain (බහරේන්)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Job Sector / Role Expertise (රැකියා ක්ෂේත්‍රය / வேலைத் துறை)</label>
+                <select name="Role" id="roleDropdown" required>
+                    <option value="General Applicant">Select Sector</option>
+                    <option value="Transport & Logistics">Transport & Logistics</option>
+                    <option value="Healthcare & Caregiving">Healthcare & Caregiving</option>
+                    <option value="Hospitality & Support">Hospitality & Support</option>
+                    <option value="Domestic & Home Services">Domestic & Home Services</option>
+                </select>
+            </div>
+
+            <!-- LIVE CLOUDFLARE TURNSTILE MANAGED SHIELD CONTAINER -->
+            <div class="turnstile-container">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADc8uL92RLY5t3SR" data-callback="passedGuard" data-expired-callback="expiredGuard" data-error-callback="errorGuard"></div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="submit-btn" disabled>VERIFYING APPLICATION SECURITY...</button>
+        </form>
+
+        <!-- SPLIT ROUTING SUPPORT PANEL FOR DIRECT INTERACTION -->
+        <div class="contact-card">
+            <h4>Direct Desk Routing Support</h4>
+            <p><strong>Office Landline (Call Only):</strong><br> <a href="tel:0112338628">0112338628</a></p>
+            <hr>
+            <p><strong>Hotline Alpha: 0710177889</strong></p>
+            <a href="tel:0710177889" class="action-btn call-btn">Call Line</a>
+            <a href="https://wa.me/94710177889?text=I%20am%20interested%20in%20applying" class="action-btn wa-btn" target="_blank">WhatsApp</a>
+            
+            <p style="margin-top:15px;"><strong>Hotline Beta: 0765887883</strong></p>
+            <a href="tel:0765887883" class="action-btn call-btn">Call Line</a>
+            <a href="https://wa.me/94765887883?text=I%20am%20interested%20in%20applying" class="action-btn wa-btn" target="_blank">WhatsApp</a>
+        </div>
+    </div>
+
+    <script>
+        // Parameter Capture Funnel Engine
+        const urlParams = new URLSearchParams(window.location.search);
+        const destParam = urlParams.get('dest');
+        const roleParam = urlParams.get('role');
+        
+        if (destParam) { document.getElementById('destinationDropdown').value = destParam; }
+        if (roleParam) { document.getElementById('roleDropdown').value = roleParam; }
+
+        const btn = document.getElementById('submitBtn');
+
+        // Unlock submission when security challenge is cleared
+        function passedGuard(token) {
+            btn.disabled = false;
+            btn.innerText = "SUBMIT DATA RECORD";
+        }
+
+        function expiredGuard() {
+            btn.disabled = true;
+            btn.innerText = "SECURITY VERIFICATION EXPIRED - REFRESHING...";
+        }
+
+        function errorGuard() {
+            btn.disabled = true;
+            btn.innerText = "SECURITY ERROR - PLEASE TRY AGAIN";
+        }
+    </script>
+</body>
+</html>
