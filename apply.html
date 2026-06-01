@@ -26,8 +26,11 @@
         .call-btn { background: var(--primary-blue); }
         .wa-btn { background: #25d366; }
         
-        /* Center widget container */
         .turnstile-container { display: flex; justify-content: center; margin: 15px 0; }
+        
+        /* Premium Success Message State */
+        #successMessage { display: none; text-align: center; padding: 30px 10px; }
+        .success-icon { font-size: 50px; color: #2f855a; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -39,10 +42,10 @@
     </header>
 
     <div class="form-box">
-        <h2 style="text-align:center; color:var(--primary-blue); margin-top:0;">Intake Application</h2>
         
-        <!-- FREE CENTRAL DATABASE INTAKE PIPELINE -->
-        <form id="recruitmentForm" action="https://script.google.com/macros/s/AKfycbxfs6eHLNyZiBkCBQVfKc2ltb-FN1CDlnlXF22LtZsfAHX7az7kD1s3zb29CZ3sL2qA/exec" method="POST">
+        <!-- THE INTAKE FORM CONTAINER -->
+        <form id="recruitmentForm">
+            <h2 style="text-align:center; color:var(--primary-blue); margin-top:0;">Intake Application</h2>
             
             <div class="form-group">
                 <label>Full Name (සම්පූර්ණ නම / முழுப் பெயர்)</label>
@@ -76,7 +79,7 @@
             <div class="form-group">
                 <label>Do you have a Passport? (පැස්පෝට් තිබේද? / பாஸ்போர்ட் இருக்கிறதா?)</label>
                 <select name="Passport" required>
-                    <option value="Yes">Yes (ඔව් / ஆம்)</option>
+                    <option value="Yes">Yes (ඔဝ် / ஆம்)</option>
                     <option value="No">No (නැත / இல்லை)</option>
                 </select>
             </div>
@@ -93,7 +96,7 @@
 
             <div class="form-group">
                 <label>Job Sector / Role Expertise (රැකියා ක්ෂේත්‍රය / வேலைத் துறை)</label>
-                <select name="Role" id="roleDropdown" required>
+                <select name="role" id="roleDropdown" required>
                     <option value="General Applicant">Select Sector</option>
                     <option value="Transport & Logistics">Transport & Logistics</option>
                     <option value="Healthcare & Caregiving">Healthcare & Caregiving</option>
@@ -109,6 +112,17 @@
 
             <button type="submit" id="submitBtn" class="submit-btn" disabled>VERIFYING APPLICATION SECURITY...</button>
         </form>
+
+        <!-- ELEVATED ON-PAGE SUCCESS CARD DISPLAY -->
+        <div id="successMessage">
+            <div class="success-icon">✓</div>
+            <h2 style="color: #2f855a; margin-top: 0;">Application Submitted!</h2>
+            <p style="color: var(--dark-slate); font-size: 16px; line-height: 1.5;">
+                Your data has been successfully securely registered in our systems.<br>
+                ඔබගේ අයදුම්පත සාර්ථකව ලැබුණි.<br>
+                உங்கள் விண்ணப்பம் வெற்றிகரமாக சமர்ப்பிக்கப்பட்டது.
+            </p>
+        </div>
 
         <!-- SPLIT ROUTING SUPPORT PANEL FOR DIRECT INTERACTION -->
         <div class="contact-card">
@@ -134,7 +148,9 @@
         if (destParam) { document.getElementById('destinationDropdown').value = destParam; }
         if (roleParam) { document.getElementById('roleDropdown').value = roleParam; }
 
+        const form = document.getElementById('recruitmentForm');
         const btn = document.getElementById('submitBtn');
+        const successBox = document.getElementById('successMessage');
 
         // Unlock submission when security challenge is cleared
         function passedGuard(token) {
@@ -151,6 +167,37 @@
             btn.disabled = true;
             btn.innerText = "SECURITY ERROR - PLEASE TRY AGAIN";
         }
+
+        // BACKGROUND INTAKE ENGINE TO PREVENT PAGE REDIRECTS
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            btn.disabled = true;
+            btn.innerText = "RECORDING DATA...";
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxfs6eHLNyZiBkCBQVfKc2ltb-FN1CDlnlXF22LtZsfAHX7az7kD1s3zb29CZ3sL2qA/exec';
+            
+            // Build form data payload manually to enforce perfect lowercase matching for Google Scripts
+            const formData = new FormData();
+            formData.append('Name', form.Name.value);
+            formData.append('WhatsApp', form.WhatsApp.value);
+            formData.append('Age', form.Age.value);
+            formData.append('District', form.District.value);
+            formData.append('Passport', form.Passport.value);
+            formData.append('Destination', form.Destination.value);
+            formData.append('role', form.role.value); // Lowercase matching option
+
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors'})
+                .then(response => {
+                    form.style.display = 'none';
+                    successBox.style.display = 'block';
+                })
+                .catch(error => {
+                    console.error('Error!', error.message);
+                    btn.disabled = false;
+                    btn.innerText = "SUBMIT DATA RECORD";
+                    alert("Submission failed. Please check connection or click direct routing links below.");
+                });
+        });
     </script>
 </body>
 </html>
