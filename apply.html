@@ -79,7 +79,7 @@
             <div class="form-group">
                 <label>Do you have a Passport? (පැස්පෝට් තිබේද? / பாஸ்போர்ட் இருக்கிறதா?)</label>
                 <select name="Passport" required>
-                    <option value="Yes">Yes (ඔဝ် / ஆம்)</option>
+                    <option value="Yes">Yes (ඔව් / ஆம்)</option>
                     <option value="No">No (නැත / இல்லை)</option>
                 </select>
             </div>
@@ -96,7 +96,7 @@
 
             <div class="form-group">
                 <label>Job Sector / Role Expertise (රැකියා ක්ෂේත්‍රය / வேலைத் துறை)</label>
-                <select name="role" id="roleDropdown" required>
+                <select name="roleSelection" id="roleDropdown" required>
                     <option value="General Applicant">Select Sector</option>
                     <option value="Transport & Logistics">Transport & Logistics</option>
                     <option value="Healthcare & Caregiving">Healthcare & Caregiving</option>
@@ -152,7 +152,6 @@
         const btn = document.getElementById('submitBtn');
         const successBox = document.getElementById('successMessage');
 
-        // Unlock submission when security challenge is cleared
         function passedGuard(token) {
             btn.disabled = false;
             btn.innerText = "SUBMIT DATA RECORD";
@@ -168,7 +167,7 @@
             btn.innerText = "SECURITY ERROR - PLEASE TRY AGAIN";
         }
 
-        // BACKGROUND INTAKE ENGINE TO PREVENT PAGE REDIRECTS
+        // BACKGROUND INTAKE ENGINE WITH MULTI-NAME FALLBACKS
         form.addEventListener('submit', function(e) {
             e.preventDefault();
             btn.disabled = true;
@@ -176,15 +175,22 @@
 
             const scriptURL = 'https://script.google.com/macros/s/AKfycbxfs6eHLNyZiBkCBQVfKc2ltb-FN1CDlnlXF22LtZsfAHX7az7kD1s3zb29CZ3sL2qA/exec';
             
-            // Build form data payload manually to enforce perfect lowercase matching for Google Scripts
+            const selectedRoleValue = form.roleSelection.value;
             const formData = new FormData();
+            
+            // Core elements mapping
             formData.append('Name', form.Name.value);
             formData.append('WhatsApp', form.WhatsApp.value);
             formData.append('Age', form.Age.value);
             formData.append('District', form.District.value);
             formData.append('Passport', form.Passport.value);
             formData.append('Destination', form.Destination.value);
-            formData.append('role', form.role.value); // Lowercase matching option
+            
+            // BLANKET PAYLOAD ENGINE: Fires all variants so the script captures at least one
+            formData.append('Role', selectedRoleValue);
+            formData.append('role', selectedRoleValue);
+            formData.append('JobSector', selectedRoleValue);
+            formData.append('Sector', selectedRoleValue);
 
             fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors'})
                 .then(response => {
@@ -195,7 +201,7 @@
                     console.error('Error!', error.message);
                     btn.disabled = false;
                     btn.innerText = "SUBMIT DATA RECORD";
-                    alert("Submission failed. Please check connection or click direct routing links below.");
+                    alert("Submission failed. Please check connection.");
                 });
         });
     </script>
