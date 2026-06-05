@@ -3,31 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome | Al-Nashat</title>
+    <title>Apply | Al-Nashat</title>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; height: 100vh; display: flex; align-items: center; justify-content: center; background-color: #f5f5f7; }
-        .splash-container { text-align: center; animation: fadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(20px); padding: 40px; background: white; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); max-width: 420px; width: 90%; }
-        .logo { height: 80px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
-        h1 { color: #1d1d1f; font-size: 28px; margin-bottom: 35px; font-weight: 600; letter-spacing: -0.5px; }
-        .lang-btn { display: block; width: 100%; padding: 18px; margin: 12px 0; background: #f5f5f7; border: none; border-radius: 14px; font-size: 18px; font-weight: 600; color: #1d1d1f; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .lang-btn:hover { background: #1a2e5a; color: white; transform: scale(1.03); }
+        :root { --blue: #1a2e5a; --bg: #f5f5f7; --text: #1d1d1f; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+        .lang-en, .lang-si, .lang-ta { display: none; }
+        body.lang-en .lang-en, body.lang-si .lang-si, body.lang-ta .lang-ta { display: block; }
         
-        @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+        /* Minimal Header */
+        .sticky-header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; }
+        .logo { height: 40px; border-radius: 8px; }
+        .cancel-btn { color: var(--text); font-weight: 600; text-decoration: none; font-size: 16px; opacity: 0.7; transition: 0.3s; }
+        .cancel-btn:hover { opacity: 1; }
+        
+        /* Premium Form Layout */
+        .form-box { background: white; max-width: 550px; margin: 50px auto; padding: 50px 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.08); animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .form-title { text-align: center; font-size: 30px; font-weight: 700; margin-bottom: 40px; letter-spacing: -0.5px; }
+        
+        .form-group { margin-bottom: 25px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 10px; font-size: 15px; color: #555; }
+        .form-group input, .form-group select { width: 100%; padding: 16px; border: 1px solid #d2d2d7; border-radius: 12px; box-sizing: border-box; font-size: 17px; background: #fbfbfd; transition: all 0.3s; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--blue); background: white; outline: none; box-shadow: 0 0 0 4px rgba(26, 46, 90, 0.1); }
+        
+        .submit-btn { width: 100%; background: var(--blue); color: white; padding: 18px; border: none; border-radius: 14px; font-size: 18px; font-weight: 600; cursor: pointer; margin-top: 20px; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .submit-btn:hover:not(:disabled) { transform: scale(1.02); box-shadow: 0 8px 20px rgba(26, 46, 90, 0.2); }
+        .submit-btn:disabled { background: #d2d2d7; cursor: not-allowed; color: #888; }
+        
+        /* Apple-Style Success Screen */
+        #successMessage { display: none; text-align: center; padding: 40px 20px; animation: popIn 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        .checkmark { width: 90px; height: 90px; background: #34c759; border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px auto; color: white; font-size: 45px; font-weight: bold; box-shadow: 0 10px 30px rgba(52, 199, 89, 0.3); }
+        
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
-<body>
-    <div class="splash-container">
-        <img src="logo.png" alt="Logo" class="logo">
-        <h1>Welcome<br>ආයුබෝවන්<br>வணக்கம்</h1>
-        <button class="lang-btn" onclick="enterSite('en')">English</button>
-        <button class="lang-btn" onclick="enterSite('si')">සිංහල</button>
-        <button class="lang-btn" onclick="enterSite('ta')">தமிழ்</button>
+<body class="lang-en">
+
+    <header class="sticky-header">
+        <a href="home.html"><img src="logo.png" alt="Logo" class="logo"></a>
+        <a href="home.html" class="cancel-btn">Cancel</a>
+    </header>
+
+    <div class="form-box">
+        <form id="recruitmentForm">
+            <h2 class="form-title">
+                <span class="lang-en">Application Intake</span>
+                <span class="lang-si">අයදුම්පත</span>
+                <span class="lang-ta">விண்ணப்பம்</span>
+            </h2>
+            
+            <div class="form-group">
+                <label>
+                    <span class="lang-en">Full Name</span><span class="lang-si">සම්පූර්ණ නම</span><span class="lang-ta">முழுப் பெயர்</span>
+                </label>
+                <input type="text" id="formName" required>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span class="lang-en">WhatsApp Number</span><span class="lang-si">දුරකථන අංකය</span><span class="lang-ta">வாட்ஸ்அப் எண்</span>
+                </label>
+                <input type="tel" id="formWhatsApp" required>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span class="lang-en">Age</span><span class="lang-si">වයස</span><span class="lang-ta">வயது</span>
+                </label>
+                <input type="number" id="formAge" required min="18" max="60">
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span class="lang-en">Home District</span><span class="lang-si">දිස්ත්‍රික්කය</span><span class="lang-ta">மாவட்டம்</span>
+                </label>
+                <select id="formDistrict" required></select>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span class="lang-en">Do you have a Passport?</span><span class="lang-si">පැස්පෝට් තිබේද?</span><span class="lang-ta">பாஸ்போர்ட் இருக்கிறதா?</span>
+                </label>
+                <select id="formPassport" required>
+                    <option value="" class="lang-en">Select</option><option value="" class="lang-si">තෝරන්න</option><option value="" class="lang-ta">தேர்ந்தெடு</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span class="lang-en">Destination Country</span><span class="lang-si">රට</span><span class="lang-ta">நாடு</span>
+                </label>
+                <select id="formDestination" required>
+                    <option value="Saudi">Saudi Arabia</option>
+                    <option value="Kuwait">Kuwait</option>
+                    <option value="Bahrain">Bahrain</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <span class="lang-en">Specific Job Role</span><span class="lang-si">රැකියාව</span><span class="lang-ta">பணி</span>
+                </label>
+                <select id="formRole" required>
+                    <option value="Heavy Vehicle Driver">Heavy Vehicle Driver</option>
+                    <option value="Healthcare Assistant">Healthcare Assistant</option>
+                    <option value="Housekeeping Supervisor">Housekeeping Supervisor</option>
+                </select>
+            </div>
+
+            <div style="display:flex; justify-content:center; margin: 30px 0;">
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAADc8uL92RLY5t3SR" data-callback="passedGuard"></div>
+            </div>
+
+            <button type="submit" id="submitBtn" class="submit-btn" disabled>
+                <span class="lang-en">Submit Application</span>
+                <span class="lang-si">ඉදිරිපත් කරන්න</span>
+                <span class="lang-ta">சமர்ப்பிக்கவும்</span>
+            </button>
+        </form>
+
+        <div id="successMessage">
+            <div class="checkmark">✓</div>
+            <h2 style="color: #1d1d1f; margin-bottom: 15px; font-size: 28px;">
+                <span class="lang-en">Thank You!</span>
+                <span class="lang-si">ස්තුතියි!</span>
+                <span class="lang-ta">நன்றி!</span>
+            </h2>
+            <p style="color: #555; font-size: 17px; line-height: 1.6;">
+                <span class="lang-en">Your application is securely logged. Our team is reviewing your profile. Relax, sit back, and we will contact you directly on WhatsApp very soon.</span>
+                <span class="lang-si">ඔබගේ අයදුම්පත සාර්ථකව ලැබුණි. අපගේ කණ්ඩායම එය පරීක්ෂා කරමින් සිටී. අපි ඉක්මනින් WhatsApp හරහා ඔබව සම්බන්ධ කරගන්නෙමු.</span>
+                <span class="lang-ta">உங்கள் விண்ணப்பம் பாதுகாப்பாக பதிவு செய்யப்பட்டுள்ளது. எங்கள் குழு உங்கள் சுயவிவரத்தை சரிபார்க்கிறது. விரைவில் வாட்ஸ்அப் மூலம் தொடர்புகொள்வோம்.</span>
+            </p>
+        </div>
     </div>
+
     <script>
-        function enterSite(lang) {
-            localStorage.setItem('mrs_lang', lang);
-            window.location.href = 'home.html';
-        }
+        // Set Theme Language
+        const lang = localStorage.getItem('mrs_lang') || 'en';
+        document.body.className = 'lang-' + lang;
+
+        // Auto-Load 25 Districts
+        const districts = {
+            en: ["Colombo", "Gampaha", "Kalutara", "Kandy", "Matale", "Nuwara Eliya", "Galle", "Matara", "Hambantota", "Jaffna", "Kilinochchi", "Mannar", "Vavuniya", "Mullaitivu", "Batticaloa", "Ampara", "Trincomalee", "Kurunegala", "Puttalam", "Anuradhapura", "Polonnaruwa", "Badulla", "Moneragala", "Ratnapura", "Kegalle"],
+            si: ["කොළඹ", "ගම්පහ", "කළුතර", "මහනුවර", "මාතලේ", "නුවරඑළිය", "ගාල්ල", "මාතර", "හම්බන්තොට", "යාපනය", "කිලිනොච්චිය", "මන්නාරම", "වවුනියාව", "මුලතිව්", "මඩකලපුව", "අම්පාර", "ත්‍රිකුණාමලය", "කුරුණෑගල", "පුත්තලම", "අනුරාධපුරය", "පොළොන්නරුව", "බදුල්ල", "මොණරාගල", "රත්නපුර", "කෑගල්ල"],
+            ta: ["கொழும்பு", "கம்பஹா", "களுத்துறை", "கண்டி", "மாத்தளை", "நுவரெலியா", "காலி", "மாத்தறை", "அம்பாந்தோட்டை", "யாழ்ப்பாணம்", "கிளிநொச்சி", "மன்னார்", "வவுனியா", "முல்லைத்தீவு", "மட்டக்களப்பு", "அம்பாறை", "திருகோணமலை", "குருநாகல்", "புத்தளம்", "அனுராதபுரம்", "பொலன்னறுவை", "பதுளை", "மொனராகலை", "இரத்தினபுரி", "கேகாலை"]
+        };
+
+        const distSelect = document.getElementById('formDistrict');
+        distSelect.innerHTML = `<option value="">Select District</option>`;
+        districts[lang].forEach((d, index) => {
+            distSelect.innerHTML += `<option value="${districts['en'][index]}">${d}</option>`;
+        });
+
+        // Form Logic
+        const form = document.getElementById('recruitmentForm');
+        const btn = document.getElementById('submitBtn');
+        const successBox = document.getElementById('successMessage');
+
+        function passedGuard() { btn.disabled = false; }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            btn.disabled = true;
+
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbyTCQCIn1sth-dTh6M44kBIQ5dB5_AdeIOEutW3JIQdtlArWJ8aTr7RuQ7GlTPZL4cx/exec';
+            const formData = new FormData();
+            
+            formData.append('Name', document.getElementById('formName').value);
+            formData.append('WhatsApp', document.getElementById('formWhatsApp').value);
+            formData.append('Age', document.getElementById('formAge').value);
+            formData.append('District', document.getElementById('formDistrict').value);
+            formData.append('Passport', document.getElementById('formPassport').value);
+            formData.append('Destination', document.getElementById('formDestination').value);
+            formData.append('Role', document.getElementById('formRole').value);
+
+            fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors'})
+                .then(() => {
+                    form.style.display = 'none';
+                    successBox.style.display = 'block';
+                })
+                .catch(() => alert("Error submitting. Please check connection."));
+        });
     </script>
 </body>
 </html>
