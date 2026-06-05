@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Al-Nashat</title>
+    <style>
+        :root { --blue: #1a2e5a; --red: #e62525; --bg: #f5f5f7; --text: #1d1d1f; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+        
+        .lang-en, .lang-si, .lang-ta { display: none; }
+        body.lang-en .lang-en, body.lang-si .lang-si, body.lang-ta .lang-ta { display: block; }
+        body.lang-en .lang-inline-en, body.lang-si .lang-inline-si, body.lang-ta .lang-inline-ta { display: inline; }
+
+        /* Apple-Style Glass Header */
+        .sticky-header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; }
+        .logo-container { position: absolute; left: 50%; transform: translateX(-50%); }
+        .logo { height: 45px; border-radius: 8px; }
+        .nav-left, .nav-right { display: flex; align-items: center; z-index: 2; }
+        
+        .lang-toggle button { border: none; background: #f5f5f7; padding: 8px 12px; margin-right: 5px; border-radius: 8px; cursor: pointer; font-weight: 600; color: var(--text); transition: 0.3s; }
+        .lang-toggle button:hover { background: #e8e8ed; }
+        
+        .btn-apply { background: var(--blue); color: white; text-decoration: none; padding: 12px 24px; border-radius: 12px; font-weight: 600; transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s; }
+        .btn-apply:hover { transform: scale(1.04); box-shadow: 0 8px 20px rgba(26, 46, 90, 0.2); }
+
+        .container { max-width: 900px; margin: 60px auto; padding: 0 20px; animation: popIn 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .section-title { text-align: center; font-size: 34px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 40px; }
+        
+        /* Massive Country Cards */
+        .country-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .country-card { background: white; padding: 40px 20px; border-radius: 20px; text-align: center; cursor: pointer; border: 2px solid transparent; box-shadow: 0 8px 30px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .country-card h2 { margin: 0; font-size: 26px; font-weight: 600; }
+        .country-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
+        .country-card.active { border-color: var(--blue); background: #f0f4f8; }
+
+        /* Massive Role Boxes */
+        .job-details { display: none; margin-top: 50px; opacity: 0; }
+        .job-details.active { display: block; animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 30px; margin-bottom: 50px; }
+        .job-box { background: white; padding: 35px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.04); border-left: 6px solid var(--blue); transition: transform 0.3s; }
+        .job-box:hover { transform: translateY(-3px); }
+        .job-box h3 { margin-top: 0; font-size: 22px; color: var(--blue); }
+        .job-box p { font-size: 17px; line-height: 1.5; color: #555; }
+
+        /* Social Deck */
+        .social-deck { display: flex; justify-content: center; gap: 20px; margin-bottom: 50px; flex-wrap: wrap; }
+        .social-btn { display: flex; align-items: center; gap: 10px; background: white; padding: 18px 30px; border-radius: 16px; text-decoration: none; font-weight: 600; font-size: 18px; color: var(--text); box-shadow: 0 6px 20px rgba(0,0,0,0.05); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .social-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .social-btn.wa { color: #25D366; }
+        .social-btn.ig { color: #E1306C; }
+        .social-btn.tt { color: #000000; }
+
+        /* Clean Footer */
+        .footer { background: white; padding: 60px 20px; text-align: center; border-top: 1px solid rgba(0,0,0,0.05); margin-top: 60px; }
+        .footer h3 { font-size: 20px; margin-bottom: 25px; color: var(--text); }
+        .footer p { font-size: 16px; color: #666; margin: 8px 0; }
+        .footer-logo { height: 60px; border-radius: 12px; margin-bottom: 20px; }
+
+        @keyframes popIn { from { opacity: 0; transform: scale(0.97); } to { opacity: 1; transform: scale(1); } }
+        @keyframes slideUpFade { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="lang-en">
+
+    <header class="sticky-header">
+        <div class="nav-left">
+            <div class="lang-toggle">
+                <button onclick="switchLang('en')">EN</button>
+                <button onclick="switchLang('si')">සිං</button>
+                <button onclick="switchLang('ta')">தமி</button>
+            </div>
+        </div>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+        </div>
+        <div class="nav-right">
+            <a href="apply.html" class="btn-apply">
+                <span class="lang-en">Apply</span>
+                <span class="lang-si">අයදුම්</span>
+                <span class="lang-ta">விண்ணப்பி</span>
+            </a>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1 class="section-title">
+            <span class="lang-en">Select Your Destination</span>
+            <span class="lang-si">ඔබගේ ගමනාන්තය තෝරන්න</span>
+            <span class="lang-ta">உங்கள் நாட்டைத் தேர்ந்தெடுக்கவும்</span>
+        </h1>
+
+        <div class="country-grid">
+            <div class="country-card" onclick="showJobs(this)">
+                <h2><span class="lang-en">Saudi Arabia</span><span class="lang-si">සෞදි අරාබිය</span><span class="lang-ta">சவுதி அரேபியா</span></h2>
+            </div>
+            <div class="country-card" onclick="showJobs(this)">
+                <h2><span class="lang-en">Kuwait</span><span class="lang-si">කුවේට්</span><span class="lang-ta">குவைத்</span></h2>
+            </div>
+            <div class="country-card" onclick="showJobs(this)">
+                <h2><span class="lang-en">Bahrain</span><span class="lang-si">බහරේන්</span><span class="lang-ta">பஹ்ரைன்</span></h2>
+            </div>
+        </div>
+
+        <div id="jobPanel" class="job-details">
+            <h2 class="section-title">
+                <span class="lang-en">Available Roles</span>
+                <span class="lang-si">පවතින රැකියා</span>
+                <span class="lang-ta">கிடைக்கும் வேலைகள்</span>
+            </h2>
+            
+            <div class="job-grid">
+                <div class="job-box">
+                    <h3>
+                        <span class="lang-en">Heavy Vehicle Driver</span>
+                        <span class="lang-si">බර වාහන රියදුරු</span>
+                        <span class="lang-ta">கனரக வாகன ஓட்டுநர்</span>
+                    </h3>
+                    <p><strong><span class="lang-en">Salary:</span><span class="lang-si">වැටුප:</span><span class="lang-ta">சம்பளம்:</span></strong> 2500 SAR</p>
+                    <p><span class="lang-en">Valid Gulf License Required.</span><span class="lang-si">වලංගු ගල්ෆ් බලපත්‍රයක් අවශ්‍යයි.</span><span class="lang-ta">செல்லுபடியாகும் வளைகுடா உரிமம் தேவை.</span></p>
+                </div>
+                <div class="job-box">
+                    <h3>
+                        <span class="lang-en">Healthcare Assistant</span>
+                        <span class="lang-si">සෞඛ්‍ය සහකාර</span>
+                        <span class="lang-ta">சுகாதார உதவியாளர்</span>
+                    </h3>
+                    <p><strong><span class="lang-en">Salary:</span><span class="lang-si">වැටුප:</span><span class="lang-ta">சம்பளம்:</span></strong> 2000 SAR</p>
+                    <p><span class="lang-en">2 Years Hospital Experience.</span><span class="lang-si">වසර 2ක රෝහල් පළපුරුද්ද.</span><span class="lang-ta">2 வருட மருத்துவமனை அனுபவம்.</span></p>
+                </div>
+            </div>
+
+            <!-- Beautiful Social Deck -->
+            <div class="social-deck">
+                <a href="https://wa.me/94710177889" class="social-btn wa" target="_blank">📞 WhatsApp</a>
+                <a href="#" class="social-btn ig" target="_blank">📸 Instagram</a>
+                <a href="#" class="social-btn tt" target="_blank">🎵 TikTok</a>
+            </div>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <a href="apply.html" class="btn-apply" style="display: inline-block; padding: 20px 60px; font-size: 20px; border-radius: 16px;">
+                    <span class="lang-en">Apply Now</span>
+                    <span class="lang-si">දැන්ම අයදුම් කරන්න</span>
+                    <span class="lang-ta">இப்போது விண்ணப்பிக்கவும்</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <img src="logo.png" alt="Logo" class="footer-logo">
+        <h3>Al-Nashat Manpower Services</h3>
+        <p><strong>SLBFE L.L NO. 2875</strong></p>
+        <p>Office: <a href="tel:0112338628" style="color:var(--blue); text-decoration:none; font-weight:bold;">0112338628</a></p>
+        <p>Hotlines: 0710177889 | 0765887883</p>
+        <p>No. 32, Colombo Road, Kurunegala</p>
+    </footer>
+
+    <script>
+        function switchLang(lang) {
+            localStorage.setItem('mrs_lang', lang);
+            document.body.className = 'lang-' + lang;
+        }
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedLang = localStorage.getItem('mrs_lang') || 'en';
+            document.body.className = 'lang-' + savedLang;
+        });
+
+        function showJobs(element) {
+            // Remove active state from all, add to clicked
+            document.querySelectorAll('.country-card').forEach(c => c.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Pop out, Pop in animation
+            const panel = document.getElementById('jobPanel');
+            panel.classList.remove('active');
+            
+            // Tiny delay to restart the CSS animation smoothly
+            setTimeout(() => { panel.classList.add('active'); }, 50);
+        }
+    </script>
+</body>
+</html>
