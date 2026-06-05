@@ -2,187 +2,275 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>Recruitment Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Al-Nashat Manpower</title>
     <style>
+        /* Premium Apple Color Palette & Typography */
         :root { 
-            --primary-blue: #1a2e5a; 
-            --phoenix-red: #e62525; 
-            --dark-slate: #2d3748;
-            --light-bg: #f7fafc; 
+            --blue: #1a2e5a; 
+            --bg: #f5f5f7; 
+            --text: #1d1d1f; 
+            --surface: #ffffff;
+            --glass: rgba(255, 255, 255, 0.75);
+            --shadow-subtle: 0 4px 24px rgba(0,0,0,0.04);
+            --shadow-hover: 0 14px 40px rgba(0,0,0,0.08);
+            --apple-curve: cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; margin: 0; background: var(--light-bg); padding-bottom: 80px; }
         
-        /* TRILINGUAL STICKY ENGINE */
-        .sticky-header { position: sticky; top: 0; background: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000; }
-        .compliance-tag { color: var(--primary-blue); font-weight: bold; font-size: 14px; text-decoration: none; }
-        .lang-select { padding: 6px 10px; border-radius: 4px; border: 1px solid #cbd5e0; font-size: 14px; font-weight: bold; }
-
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        h2 { color: var(--primary-blue); border-left: 4px solid var(--phoenix-red); padding-left: 10px; margin: 30px 0 15px 0; font-size: 22px; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif; 
+            margin: 0; 
+            background: var(--bg); 
+            color: var(--text); 
+            -webkit-font-smoothing: antialiased; 
+            overflow-x: hidden;
+        }
         
-        /* ANTI-TEMPLATE STRUCTURAL FLUID GRIDS */
-        .root-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 11fr)); gap: 16px; margin-bottom: 20px; }
+        /* Strict Language Isolation */
+        .lang-en, .lang-si, .lang-ta { display: none; }
+        body.lang-en .lang-en, body.lang-si .lang-si, body.lang-ta .lang-ta { display: block; }
+        body.lang-en .lang-inline-en, body.lang-si .lang-inline-si, body.lang-ta .lang-inline-ta { display: inline; }
+
+        /* The Premium Splash Entry Gate */
+        #splashGate { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+            background: rgba(245, 245, 247, 0.95); 
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            display: flex; align-items: center; justify-content: center; 
+            z-index: 9999; 
+            transition: opacity 0.8s var(--apple-curve), visibility 0.8s; 
+        }
+        .splash-container { 
+            text-align: center; 
+            animation: slideUp 1.2s var(--apple-curve); 
+            padding: 50px 40px; 
+            background: var(--surface); 
+            border-radius: 32px; 
+            box-shadow: var(--shadow-hover); 
+            max-width: 420px; width: 85%; 
+        }
+        .splash-logo { height: 90px; border-radius: 16px; margin-bottom: 30px; }
+        .splash-container h1 { font-size: 28px; font-weight: 700; margin-bottom: 35px; letter-spacing: -0.5px; line-height: 1.4; }
         
-        /* COUNTRY CARD PATHWAYS */
-        .country-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-decoration: none; color: inherit; transition: transform 0.2s; position: relative; }
-        .country-card:active { transform: scale(0.98); }
-        .country-hero { height: 120px; background-size: cover; background-position: center; background-color: #cbd5e0; }
-        .card-info { padding: 15px; }
-        .card-title { font-size: 18px; font-weight: bold; color: var(--dark-slate); margin: 0 0 5px 0; }
-        .card-subtitle { font-size: 13px; color: #718096; margin: 0; }
+        .lang-btn { 
+            display: block; width: 100%; padding: 20px; margin: 14px 0; 
+            background: var(--bg); border: none; border-radius: 18px; 
+            font-size: 19px; font-weight: 600; color: var(--text); 
+            cursor: pointer; transition: all 0.4s var(--apple-curve); 
+        }
+        .lang-btn:hover { background: var(--blue); color: white; transform: scale(1.03); }
 
-        /* PURE-CODE INDUSTRY TRACKS (0% COPYRIGHT RISK) */
-        .role-btn { display: flex; flex-direction: column; justify-content: center; padding: 20px; border-radius: 8px; text-decoration: none; color: white; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s; }
-        .role-btn:active { transform: scale(0.98); }
-        .track-1 { background: linear-gradient(135deg, #2b6cb0, #1a365d); } /* Logistics Deep Blue */
-        .track-2 { background: linear-gradient(135deg, #319795, #1d4044); } /* Healthcare Teal */
-        .track-3 { background: linear-gradient(135deg, #4a5568, #2d3748); } /* Hospitality Slate */
-        .track-4 { background: linear-gradient(135deg, #d69e2e, #744210); } /* Domestic Bronze */
-        .role-title { font-size: 16px; margin-bottom: 4px; }
-        .role-desc { font-size: 12px; font-weight: normal; opacity: 0.85; }
+        /* Ultra-Clean Glass Header */
+        .sticky-header { 
+            position: sticky; top: 0; 
+            background: var(--glass); 
+            backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); 
+            padding: 16px 32px; 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid rgba(0,0,0,0.04); 
+            z-index: 1000; 
+        }
+        .logo-container { position: absolute; left: 50%; transform: translateX(-50%); }
+        .logo { height: 44px; border-radius: 10px; }
+        .nav-left, .nav-right { display: flex; align-items: center; z-index: 2; }
+        
+        .lang-toggle button { 
+            border: none; background: transparent; padding: 10px 14px; margin-right: 4px; 
+            border-radius: 12px; cursor: pointer; font-weight: 600; color: #555; 
+            transition: all 0.3s ease; font-size: 15px; 
+        }
+        .lang-toggle button:hover { background: rgba(0,0,0,0.05); color: var(--text); }
+        
+        .btn-apply { 
+            background: var(--blue); color: white; text-decoration: none; 
+            padding: 14px 28px; border-radius: 14px; font-weight: 600; font-size: 16px;
+            transition: all 0.4s var(--apple-curve); 
+        }
+        .btn-apply:hover { transform: scale(1.05); box-shadow: 0 10px 25px rgba(26, 46, 90, 0.2); }
 
-        /* UNIVERSAL PERSISTENT ACTION FOOTER */
-        .persistent-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 10px rgba(0,0,0,0.08); padding: 12px 20px; display: flex; justify-content: center; z-index: 999; }
-        .action-master-btn { background: var(--phoenix-red); color: white; text-decoration: none; padding: 14px 40px; border-radius: 6px; font-weight: bold; font-size: 16px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 4px 10px rgba(230,37,37,0.3); }
+        /* Main Dashboard Core */
+        .container { max-width: 1000px; margin: 80px auto; padding: 0 24px; }
+        .section-title { text-align: center; font-size: 44px; font-weight: 700; letter-spacing: -1.2px; margin-bottom: 60px; animation: slideUp 1s var(--apple-curve); }
+        
+        /* Premium Routing Cards (Massive & Clean) */
+        .country-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-bottom: 80px; animation: fadeUp 1.2s var(--apple-curve); }
+        
+        .country-card { 
+            display: flex; flex-direction: column; justify-content: center;
+            text-decoration: none; background: var(--surface); padding: 70px 30px; 
+            border-radius: 36px; text-align: center; 
+            box-shadow: var(--shadow-subtle); border: 1px solid rgba(0,0,0,0.01); 
+            transition: all 0.5s var(--apple-curve); 
+        }
+        .country-card:hover { transform: translateY(-12px) scale(1.02); box-shadow: var(--shadow-hover); border-color: rgba(26, 46, 90, 0.05); }
+        
+        .country-card h2 { margin: 0 0 15px 0; font-size: 34px; font-weight: 700; color: var(--text); letter-spacing: -0.5px; }
+        .card-arrow { font-size: 18px; color: var(--blue); font-weight: 600; opacity: 0; transform: translateX(-15px); transition: all 0.4s var(--apple-curve); }
+        .country-card:hover .card-arrow { opacity: 1; transform: translateX(0); }
+
+        /* Social Stream Matrix */
+        .social-deck { display: flex; justify-content: center; gap: 24px; margin-bottom: 80px; flex-wrap: wrap; animation: fadeUp 1.4s var(--apple-curve); }
+        .social-btn { 
+            display: flex; align-items: center; gap: 12px; background: var(--surface); 
+            padding: 22px 45px; border-radius: 24px; text-decoration: none; 
+            font-weight: 600; font-size: 19px; color: var(--text); 
+            box-shadow: var(--shadow-subtle); transition: all 0.4s var(--apple-curve); 
+        }
+        .social-btn:hover { transform: scale(1.06) translateY(-4px); box-shadow: var(--shadow-hover); }
+        .social-btn.wa { color: #25D366; }
+        .social-btn.ig { color: #E1306C; }
+        .social-btn.tt { color: #000000; }
+
+        /* Super Clean Footer */
+        .footer { background: var(--surface); padding: 80px 24px; text-align: center; margin-top: 60px; }
+        .footer-logo { height: 70px; border-radius: 16px; margin-bottom: 25px; }
+        .footer h3 { font-size: 22px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+        .footer p { font-size: 16px; color: #86868b; margin: 8px 0; font-weight: 500; }
+
+        /* Apple-Style Animations */
+        @keyframes slideUp { 
+            from { opacity: 0; transform: translateY(40px) scale(0.98); } 
+            to { opacity: 1; transform: translateY(0) scale(1); } 
+        }
+        @keyframes fadeUp { 
+            from { opacity: 0; transform: translateY(30px); } 
+            to { opacity: 1; transform: translateY(0); } 
+        }
+        
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .section-title { font-size: 34px; }
+            .country-card { padding: 50px 20px; border-radius: 28px; }
+            .social-btn { width: 100%; justify-content: center; }
+            .sticky-header { padding: 15px 20px; }
+        }
     </style>
 </head>
-<body>
+<body class="lang-en">
 
-    <!-- TRILINGUAL SYSTEM HEADER -->
+    <!-- The Splash Overlay -->
+    <div id="splashGate">
+        <div class="splash-container">
+            <img src="logo.png" alt="Logo" class="splash-logo">
+            <h1>Welcome<br>ආයුබෝවන්<br>வணக்கம்</h1>
+            <button class="lang-btn" onclick="selectInitialLang('en')">English</button>
+            <button class="lang-btn" onclick="selectInitialLang('si')">සිංහල</button>
+            <button class="lang-btn" onclick="selectInitialLang('ta')">தமிழ்</button>
+        </div>
+    </div>
+
+    <!-- Apple Navbar -->
     <header class="sticky-header">
-        <img src="logo.png" style="height:40px;" alt="MRS Logo">
-        <a href="https://www.slbfe.lk/" target="_blank" class="compliance-tag">SLBFE L.L NO. 2875</a>
-        <select class="lang-select" onchange="switchLanguage(this.value)">
-            <option value="en">EN</option>
-            <option value="si">සිං</option>
-            <option value="ta">தம</option>
-        </select>
+        <div class="nav-left">
+            <div class="lang-toggle">
+                <button onclick="runtimeSwitchLang('en')">EN</button>
+                <button onclick="runtimeSwitchLang('si')">සිං</button>
+                <button onclick="runtimeSwitchLang('ta')">தமி</button>
+            </div>
+        </div>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo">
+        </div>
+        <div class="nav-right">
+            <a href="apply.html" class="btn-apply">
+                <span class="lang-en">Apply</span>
+                <span class="lang-si">අයදුම්</span>
+                <span class="lang-ta">விண்ணப்பி</span>
+            </a>
+        </div>
     </header>
 
     <div class="container">
-        
-        <!-- ROOT 1: THE COUNTRY PATHWAY -->
-        <h2 id="heading-countries">Browse by Destination</h2>
-        <div class="root-grid">
+        <h1 class="section-title">
+            <span class="lang-en">Select Your Destination</span>
+            <span class="lang-si">ඔබගේ ගමනාන්තය තෝරන්න</span>
+            <span class="lang-ta">உங்கள் நாட்டைத் தேர்ந்தெடுக்கவும்</span>
+        </h1>
+
+        <div class="country-grid">
+            <a href="saudi.html" class="country-card">
+                <h2>
+                    <span class="lang-en">Saudi Arabia</span>
+                    <span class="lang-si">සෞදි අරාබිය</span>
+                    <span class="lang-ta">சவுதி அரேபியா</span>
+                </h2>
+                <div class="card-arrow">
+                    <span class="lang-en">View Roles →</span>
+                    <span class="lang-si">රැකියා බලන්න →</span>
+                    <span class="lang-ta">வேலைகளைப் பார்க்கவும் →</span>
+                </div>
+            </a>
             
             <a href="kuwait.html" class="country-card">
-                <div class="country-hero" style="background-image: url('kuwait-landscape.jpg');"></div>
-                <div class="card-info">
-                    <p class="card-title">Kuwait (කුවේට් / குவைத்)</p>
-                    <p class="card-subtitle" id="sub-kuwait">View Active Job Orders & Drivers/Domestic Vacancies</p>
+                <h2>
+                    <span class="lang-en">Kuwait</span>
+                    <span class="lang-si">කුවේට්</span>
+                    <span class="lang-ta">குவைத்</span>
+                </h2>
+                <div class="card-arrow">
+                    <span class="lang-en">View Roles →</span>
+                    <span class="lang-si">රැකියා බලන්න →</span>
+                    <span class="lang-ta">வேலைகளைப் பார்க்கவும் →</span>
                 </div>
             </a>
-
-            <a href="bahrain.html" class="country-card">
-                <div class="country-hero" style="background-image: url('bahrain-landscape.jpg');"></div>
-                <div class="card-info">
-                    <p class="card-title">Bahrain (බහරේන් / பஹ்ரைன்)</p>
-                    <p class="card-subtitle" id="sub-bahrain">Logistics, Hospitality, & Professional Care Quotas</p>
-                </div>
-            </a>
-
-            <a href="saudi.html" class="country-card">
-                <div class="country-hero" style="background-image: url('saudi-landscape.jpg');"></div>
-                <div class="card-info">
-                    <p class="card-title">Saudi Arabia (සෞදි අරාබිය / சவுதி அரேபியா)</p>
-                    <p class="card-subtitle" id="sub-saudi">Heavy Vehicle Tracks & Household Operations</p>
-                </div>
-            </a>
-
-        </div>
-
-        <!-- ROOT 2: THE INDUSTRY PATHWAY (PURE-CODE GRIDS) -->
-        <h2 id="heading-sectors">Browse by Your Skills</h2>
-        <div class="root-grid">
             
-            <a href="apply.html?role=Transport%20%26%20Logistics" class="role-btn track-1">
-                <span class="role-title" id="t1-title">Transport & Logistics</span>
-                <span class="role-desc" id="t1-desc">Drivers, Heavy Operators & Delivery Personnel</span>
+            <a href="bahrain.html" class="country-card">
+                <h2>
+                    <span class="lang-en">Bahrain</span>
+                    <span class="lang-si">බහරේන්</span>
+                    <span class="lang-ta">பஹ்ரைன்</span>
+                </h2>
+                <div class="card-arrow">
+                    <span class="lang-en">View Roles →</span>
+                    <span class="lang-si">රැකියා බලන්න →</span>
+                    <span class="lang-ta">வேலைகளைப் பார்க்கவும் →</span>
+                </div>
             </a>
-
-            <a href="apply.html?role=Healthcare%20%26%20Caregiving" class="role-btn track-2">
-                <span class="role-title" id="t2-title">Healthcare & Caregiving</span>
-                <span class="role-desc" id="t2-desc">Home Nurses, Practical Support & Medical Staff</span>
-            </a>
-
-            <a href="apply.html?role=Hospitality%20%26%20Support" class="role-btn track-3">
-                <span class="role-title" id="t3-title">Hospitality & Support</span>
-                <span class="role-desc" id="t3-desc">Hotel Operations, Culinary Staff & Support Services</span>
-            </a>
-
-            <a href="apply.html?role=Domestic%20%26%20Home%20Services" class="role-btn track-4">
-                <span class="role-title" id="t4-title">Domestic & Home Services</span>
-                <span class="role-desc" id="t4-desc">General Housemaids, Home Cooks & Domestic Helpers</span>
-            </a>
-
         </div>
 
+        <div class="social-deck">
+            <a href="https://wa.me/94710177889" class="social-btn wa" target="_blank">📞 WhatsApp</a>
+            <a href="#" class="social-btn ig" target="_blank">📸 Instagram</a>
+            <a href="#" class="social-btn tt" target="_blank">🎵 TikTok</a>
+        </div>
+        
+        <div style="text-align: center; margin-bottom: 20px;">
+            <a href="apply.html" class="btn-apply" style="display: inline-block; padding: 24px 80px; font-size: 22px; border-radius: 22px; box-shadow: var(--shadow-subtle);">
+                <span class="lang-en">Apply Now</span>
+                <span class="lang-si">දැන්ම අයදුම් කරන්න</span>
+                <span class="lang-ta">இப்போது விண்ணப்பிக்கவும்</span>
+            </a>
+        </div>
     </div>
 
-    <!-- PERSISTENT SCROLLING FOOTER -->
-    <div class="persistent-bar">
-        <a href="apply.html" class="action-master-btn" id="btn-apply-now">APPLY ONLINE NOW</a>
-    </div>
+    <footer class="footer">
+        <img src="logo.png" alt="Logo" class="footer-logo">
+        <h3>Al-Nashat Manpower Services</h3>
+        <p>SLBFE L.L NO. 2875</p>
+        <p>Office: <a href="tel:0112338628" style="color:var(--text); text-decoration:none; font-weight:600;">0112338628</a></p>
+        <p>Hotlines: 0710177889 | 0765887883</p>
+    </footer>
 
     <script>
-        // Language Matrix Engine for Instant Localization
-        const translations = {
-            en: {
-                countries: "Browse by Destination",
-                sectors: "Browse by Your Skills",
-                kuwait: "View Active Job Orders & Drivers/Domestic Vacancies",
-                bahrain: "Logistics, Hospitality, & Professional Care Quotas",
-                saudi: "Heavy Vehicle Tracks & Household Operations",
-                t1_t: "Transport & Logistics", t1_d: "Drivers, Heavy Operators & Delivery Personnel",
-                t2_t: "Healthcare & Caregiving", t2_d: "Home Nurses, Practical Support & Medical Staff",
-                t3_t: "Hospitality & Support", t3_d: "Hotel Operations, Culinary Staff & Support Services",
-                t4_t: "Domestic & Home Services", t4_d: "General Housemaids, Home Cooks & Domestic Helpers",
-                apply: "APPLY ONLINE NOW"
-            },
-            si: {
-                countries: "රටවල් අනුව තෝරන්න",
-                sectors: "ඔබේ වෘත්තීය ක්ෂේත්‍රය අනුව තෝරන්න",
-                kuwait: "රියදුරු සහ ගෘහස්ථ රැකියා ඇණවුම් බලන්න",
-                bahrain: "ප්‍රවාහන, ආගන්තුක සත්කාර සහ සාත්තු සේවා",
-                saudi: "බර වාහන ක්‍රියාකරු සහ ගෘහස්ථ සේවා නියුක්ති",
-                t1_t: "ප්‍රවාහන හා සැපයුම්", t1_d: "රියදුරන් සහ රීඩර්ස්",
-                t2_t: "සෞඛ්‍ය හා සාත්තු සේවා", t2_d: "ගෘහස්ථ සාත්තු සේවකයන් සහ සහායකයන්",
-                t3_t: "ආගන්තුක සත්කාර සහ සහය සේවා", t3_d: "හෝටල් සහ අරක්කැමි සේවා",
-                t4_t: "ගෘහස්ථ සේවා", t4_d: "ගෘහ සේවිකාවන් සහ සහායකයින්",
-                apply: "දැන්ම අයදුම් කරන්න"
-            },
-            ta: {
-                countries: "நாட்டின் மூலம் உலாவுக",
-                sectors: "உங்கள் திறமை மூலம் உலாவுக",
-                kuwait: "செயலில் உள்ள வேலை ஆர்டர்கள் மற்றும் ஓட்டுநர் காலியிடங்கள்",
-                bahrain: "லாஜிஸ்டிக்ஸ், உபசரிப்பு மற்றும் தொழில்முறை பராமரிப்பு",
-                saudi: "கனரக வாகன தடங்கள் மற்றும் வீட்டுச் செயல்பாடுகள்",
-                t1_t: "போக்குவரத்து மற்றும் விநியோகம்", t1_d: "ஓட்டுநர்கள் மற்றும் விநியோக பணியாளர்கள்",
-                t2_t: "சுகாதாரப் பாதுகாப்பு", t2_d: "வீட்டு செவிலியர்கள் மற்றும் மருத்துவ ஊழியர்கள்",
-                t3_t: "உபசரிப்பு மற்றும் ஆதரவு", t3_d: "ஹோட்டல் செயல்பாடுகள் மற்றும் சமையல் ஊழியர்கள்",
-                t4_t: "உள்நாட்டு மற்றும் வீட்டு சேவைகள்", t4_d: "பொது வீட்டுப் பணிப்பெண்கள் மற்றும் வீட்டு உதவியாளர்கள்",
-                apply: "இப்பொழுதே விண்ணப்பியுங்கள்"
-            }
-        };
-
-        function switchLanguage(lang) {
-            document.getElementById('heading-countries').innerText = translations[lang].countries;
-            document.getElementById('heading-sectors').innerText = translations[lang].sectors;
-            document.getElementById('sub-kuwait').innerText = translations[lang].kuwait;
-            document.getElementById('sub-bahrain').innerText = translations[lang].bahrain;
-            document.getElementById('sub-saudi').innerText = translations[lang].saudi;
-            document.getElementById('t1-title').innerText = translations[lang].t1_t;
-            document.getElementById('t1-desc').innerText = translations[lang].t1_d;
-            document.getElementById('t2-title').innerText = translations[lang].t2_t;
-            document.getElementById('t2-desc').innerText = translations[lang].t2_d;
-            document.getElementById('t3-title').innerText = translations[lang].t3_t;
-            document.getElementById('t3-desc').innerText = translations[lang].t3_d;
-            document.getElementById('t4-title').innerText = translations[lang].t4_t;
-            document.getElementById('t4-desc').innerText = translations[lang].t4_d;
-            document.getElementById('btn-apply-now').innerText = translations[lang].apply;
+        function runtimeSwitchLang(lang) {
+            localStorage.setItem('mrs_lang', lang);
+            document.body.className = 'lang-' + lang;
         }
+
+        function selectInitialLang(lang) {
+            runtimeSwitchLang(lang);
+            const gate = document.getElementById('splashGate');
+            gate.style.opacity = '0';
+            setTimeout(() => { gate.style.visibility = 'hidden'; }, 800);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedLang = localStorage.getItem('mrs_lang');
+            if (savedLang) {
+                document.body.className = 'lang-' + savedLang;
+                document.getElementById('splashGate').style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
