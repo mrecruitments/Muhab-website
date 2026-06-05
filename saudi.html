@@ -3,83 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>Saudi Arabia Job Orders</title>
+    <title>Saudi Arabia | Al-Nashat</title>
     <style>
-        :root { --primary-blue: #1a2e5a; --phoenix-red: #e62525; --dark-slate: #2d3748; --light-bg: #f7fafc; }
-        body { font-family: -apple-system, sans-serif; margin: 0; background: var(--light-bg); padding-bottom: 80px; }
-        .sticky-header { position: sticky; top: 0; background: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000; }
-        .compliance-tag { color: var(--primary-blue); font-weight: bold; font-size: 14px; text-decoration: none; }
-        .hero-banner { height: 200px; background-image: url('saudi-landscape.jpg'); background-size: cover; background-position: center; display: flex; align-items: flex-end; }
-        .hero-overlay { background: linear-gradient(transparent, rgba(0,0,0,0.7)); width: 100%; padding: 20px; color: white; }
-        .hero-overlay h1 { margin: 0; font-size: 24px; }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        .meta-box { background: #eef2f7; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid var(--primary-blue); }
-        .meta-box p { margin: 5px 0; font-size: 14px; color: var(--dark-slate); }
-        .vacancy-row { background: white; border-radius: 8px; padding: 15px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .role-name { font-weight: bold; color: var(--primary-blue); font-size: 16px; }
-        .salary-badge { background: #ebf8ff; color: #2b6cb0; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 15px; border: 1px solid #bee3f8; }
-        .persistent-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 10px rgba(0,0,0,0.08); padding: 12px 20px; display: flex; justify-content: center; z-index: 999; }
-        .action-master-btn { background: var(--phoenix-red); color: white; text-decoration: none; padding: 14px 40px; border-radius: 6px; font-weight: bold; font-size: 16px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 4px 10px rgba(230,37,37,0.3); }
+        :root { --blue: #1a2e5a; --bg: #f5f5f7; --text: #1d1d1f; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+        
+        .lang-en, .lang-si, .lang-ta { display: none; }
+        body.lang-en .lang-en, body.lang-si .lang-si, body.lang-ta .lang-ta { display: block; }
+        
+        .sticky-header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; }
+        .back-btn { color: var(--blue); font-weight: 600; text-decoration: none; font-size: 16px; transition: 0.3s; }
+        .back-btn:hover { opacity: 0.7; }
+        .logo { height: 40px; border-radius: 8px; }
+
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        /* Landscape Hero Image */
+        .hero-img { width: 100%; height: 350px; object-fit: cover; border-radius: 28px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); margin-bottom: 40px; }
+        
+        .country-title { text-align: center; font-size: 42px; font-weight: 700; letter-spacing: -1px; margin-bottom: 20px; }
+        .country-description { text-align: center; font-size: 20px; color: #555; line-height: 1.6; margin-bottom: 60px; max-width: 750px; margin-left: auto; margin-right: auto; }
+        
+        /* Big Role Boxes */
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .job-box { background: white; padding: 40px 30px; border-radius: 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .job-box:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.06); }
+        .job-title { font-size: 24px; font-weight: 700; color: var(--blue); margin-bottom: 15px; }
+        .job-salary { font-size: 22px; font-weight: 600; color: #34c759; }
+
+        .apply-btn { display: block; width: 100%; max-width: 400px; margin: 0 auto 60px auto; background: var(--blue); color: white; text-align: center; padding: 22px; border-radius: 20px; font-size: 22px; font-weight: 600; text-decoration: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .apply-btn:hover { transform: scale(1.03); box-shadow: 0 15px 30px rgba(26, 46, 90, 0.2); }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body>
+<body class="lang-en">
 
     <header class="sticky-header">
-        <img src="logo.png" style="height:40px;" alt="MRS Logo">
-        <a href="https://www.slbfe.lk/" target="_blank" class="compliance-tag">SLBFE L.L NO. 2875</a>
+        <a href="home.html" class="back-btn">← <span class="lang-en">Back</span><span class="lang-si">පසුපසට</span><span class="lang-ta">திரும்பு</span></a>
+        <img src="logo.png" alt="Logo" class="logo">
+        <div style="width: 50px;"></div> <!-- Spacer for perfect centering -->
     </header>
 
-    <div class="hero-banner">
-        <div class="hero-overlay">
-            <h1>Saudi Arabia Pathways (සෞදි අරාබිය / சவுதி அரேபியா)</h1>
-        </div>
-    </div>
-
     <div class="container">
-        <div class="meta-box">
-            <p><strong>Official SLBFE Job Order:</strong> AL/2875/0001/25[span_36](start_span)[span_36](end_span)</p>
-            <p><strong>Foreign Partner Office:</strong> Lahdah Shuruq Recruitment Office[span_37](start_span)[span_37](end_span)</p>
-            <p><strong>Prerequisites:</strong> Secondary Education Completed & SLBFE Training Verification required[span_38](start_span)[span_38](end_span).</p>
-        </div>
-
-        <h3 style="color: var(--primary-blue);">Available Vacancies & Approved Salaries</h3>
+        <!-- Name updated right here to match GitHub exactly -->
+        <img src="saudi-landscape.jpg" alt="Saudi Arabia" class="hero-img">
         
-        <div class="vacancy-row">
-            <div>
-                <div class="role-name">Driver - House - Male[span_39](start_span)[span_39](end_span)</div>
-                <small style="color:#718096;">50 Vacancies Available[span_40](start_span)[span_40](end_span)</small>
+        <h1 class="country-title">
+            <span class="lang-en">Saudi Arabia</span>
+            <span class="lang-si">සෞදි අරාබිය</span>
+            <span class="lang-ta">சவுதி அரேபியா</span>
+        </h1>
+        
+        <p class="country-description">
+            <span class="lang-en">Experience unparalleled growth in Saudi Arabia, offering modern infrastructure, highly competitive tax-free salaries, and world-class living standards.</span>
+            <span class="lang-si">නවීන යටිතල පහසුකම්, තරඟකාරී බදු රහිත වැටුප් සහ උසස් ජීවන තත්ත්වයක් සහිත සෞදි අරාබියේ ඔබේ අනාගතය ගොඩනගන්න.</span>
+            <span class="lang-ta">நவீன உள்கட்டமைப்பு, வரி இல்லாத சம்பளம் மற்றும் உலகத்தரம் வாய்ந்த வாழ்க்கை தரத்துடன் சவுதி அரேபியாவில் உங்கள் எதிர்காலத்தை உருவாக்குங்கள்.</span>
+        </p>
+
+        <div class="job-grid">
+            <div class="job-box">
+                <div class="job-title"><span class="lang-en">Heavy Vehicle Driver</span><span class="lang-si">බර වාහන රියදුරු</span><span class="lang-ta">கனரக வாகன ஓட்டுநர்</span></div>
+                <div class="job-salary">2500 SAR</div>
             </div>
-            <div class="salary-badge">1500 SR[span_41](start_span)[span_41](end_span)</div>
-        </div>
-
-        <div class="vacancy-row">
-            <div><div class="role-name">Nurse - House - Female[span_42](start_span)[span_42](end_span)</div></div>
-            <div class="salary-badge">1500 SR[span_43](start_span)[span_43](end_span)</div>
-        </div>
-
-        <div class="vacancy-row">
-            <div><div class="role-name">House Cook (Male & Female)[span_44](start_span)[span_44](end_span)</div></div>
-            <div class="salary-badge">1500 SR[span_45](start_span)[span_45](end_span)</div>
-        </div>
-
-        <div class="vacancy-row">
-            <div><div class="role-name">House Boy[span_46](start_span)[span_46](end_span)</div></div>
-            <div class="salary-badge">1325 SR[span_47](start_span)[span_47](end_span)</div>
-        </div>
-
-        <div class="vacancy-row">
-            <div>
-                <div class="role-name">Housemaid - General[span_48](start_span)[span_48](end_span)</div>
-                <small style="color:#718096;">200 Vacancies Available[span_49](start_span)[span_49](end_span)</small>
+            <div class="job-box">
+                <div class="job-title"><span class="lang-en">Healthcare Assistant</span><span class="lang-si">සෞඛ්‍ය සහකාර</span><span class="lang-ta">சுகாதார உதவியாளர்</span></div>
+                <div class="job-salary">2000 SAR</div>
             </div>
-            <div class="salary-badge">1200 SR[span_50](start_span)[span_50](end_span)</div>
+            <div class="job-box">
+                <div class="job-title"><span class="lang-en">Housekeeping Supervisor</span><span class="lang-si">ගෘහ පාලන අධීක්ෂක</span><span class="lang-ta">பராமரிப்பு மேற்பார்வையாளர்</span></div>
+                <div class="job-salary">3000 SAR</div>
+            </div>
         </div>
+
+        <a href="apply.html" class="apply-btn">
+            <span class="lang-en">Apply for Saudi Arabia</span>
+            <span class="lang-si">අයදුම් කරන්න</span>
+            <span class="lang-ta">விண்ணப்பிக்கவும்</span>
+        </a>
     </div>
 
-    <div class="persistent-bar">
-        <a href="apply.html?dest=Saudi" class="action-master-btn">APPLY FOR SAUDI ARABIA NOW</a>
-    </div>
-
+    <script>
+        document.body.className = 'lang-' + (localStorage.getItem('mrs_lang') || 'en');
+    </script>
 </body>
 </html>
