@@ -3,84 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>Kuwait Job Orders</title>
+    <title>Kuwait | Al-Nashat</title>
     <style>
-        :root { --primary-blue: #1a2e5a; --phoenix-red: #e62525; --dark-slate: #2d3748; --light-bg: #f7fafc; }
-        body { font-family: -apple-system, sans-serif; margin: 0; background: var(--light-bg); padding-bottom: 80px; }
-        .sticky-header { position: sticky; top: 0; background: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.08); z-index: 1000; }
-        .compliance-tag { color: var(--primary-blue); font-weight: bold; font-size: 14px; text-decoration: none; }
-        .hero-banner { height: 200px; background-image: url('kuwait-landscape.jpg'); background-size: cover; background-position: center; display: flex; align-items: flex-end; }
-        .hero-overlay { background: linear-gradient(transparent, rgba(0,0,0,0.7)); width: 100%; padding: 20px; color: white; }
-        .hero-overlay h1 { margin: 0; font-size: 24px; }
-        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        .meta-box { background: #eef2f7; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 4px solid var(--primary-blue); }
-        .meta-box p { margin: 5px 0; font-size: 14px; color: var(--dark-slate); }
-        .vacancy-row { background: white; border-radius: 8px; padding: 15px; margin-bottom: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); display: flex; justify-content: space-between; align-items: center; }
-        .role-name { font-weight: bold; color: var(--primary-blue); font-size: 16px; }
-        .salary-badge { background: #e6fffa; color: #234e52; padding: 6px 12px; border-radius: 4px; font-weight: bold; font-size: 15px; border: 1px solid #b2f5ea; }
-        .persistent-bar { position: fixed; bottom: 0; left: 0; right: 0; background: white; box-shadow: 0 -4px 10px rgba(0,0,0,0.08); padding: 12px 20px; display: flex; justify-content: center; z-index: 999; }
-        .action-master-btn { background: var(--phoenix-red); color: white; text-decoration: none; padding: 14px 40px; border-radius: 6px; font-weight: bold; font-size: 16px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 4px 10px rgba(230,37,37,0.3); }
+        :root { --blue: #1a2e5a; --bg: #f5f5f7; --text: #1d1d1f; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+        .lang-en, .lang-si, .lang-ta { display: none; }
+        body.lang-en .lang-en, body.lang-si .lang-si, body.lang-ta .lang-ta { display: block; }
+        
+        .sticky-header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(0,0,0,0.05); z-index: 1000; }
+        .back-btn { color: var(--blue); font-weight: 600; text-decoration: none; font-size: 16px; transition: 0.3s; }
+        .back-btn:hover { opacity: 0.7; }
+        .logo { height: 40px; border-radius: 8px; }
+
+        .container { max-width: 900px; margin: 40px auto; padding: 0 20px; animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .hero-img { width: 100%; height: 350px; object-fit: cover; border-radius: 28px; box-shadow: 0 15px 40px rgba(0,0,0,0.08); margin-bottom: 40px; }
+        .country-title { text-align: center; font-size: 42px; font-weight: 700; letter-spacing: -1px; margin-bottom: 20px; }
+        .country-description { text-align: center; font-size: 20px; color: #555; line-height: 1.6; margin-bottom: 60px; max-width: 750px; margin-left: auto; margin-right: auto; }
+        
+        .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; margin-bottom: 60px; }
+        .job-box { background: white; padding: 40px 30px; border-radius: 24px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .job-box:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0,0,0,0.06); }
+        .job-title { font-size: 24px; font-weight: 700; color: var(--blue); margin-bottom: 15px; }
+        .job-salary { font-size: 22px; font-weight: 600; color: #34c759; }
+
+        .apply-btn { display: block; width: 100%; max-width: 400px; margin: 0 auto 60px auto; background: var(--blue); color: white; text-align: center; padding: 22px; border-radius: 20px; font-size: 22px; font-weight: 600; text-decoration: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .apply-btn:hover { transform: scale(1.03); box-shadow: 0 15px 30px rgba(26, 46, 90, 0.2); }
+
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body>
+<body class="lang-en">
 
     <header class="sticky-header">
-        <img src="logo.png" style="height:40px;" alt="MRS Logo">
-        <a href="https://www.slbfe.lk/" target="_blank" class="compliance-tag">SLBFE L.L NO. 2875</a>
+        <a href="home.html" class="back-btn">← <span class="lang-en">Back</span><span class="lang-si">පසුපසට</span><span class="lang-ta">திரும்பு</span></a>
+        <img src="logo.png" alt="Logo" class="logo">
+        <div style="width: 50px;"></div>
     </header>
 
-    <div class="hero-banner">
-        <div class="hero-overlay">
-            <h1>Kuwait Pathways (කුවේට් / குவைத்)</h1>
-        </div>
-    </div>
-
     <div class="container">
-        <div class="meta-box">
-            <p><strong>Official SLBFE Job Order:</strong> AL/2875/0001/26[span_0](start_span)[span_0](end_span)</p>
-            <p><strong>Foreign Partner Office:</strong> Wadha Naif Al Madas Office Domestic Worker Recruitment[span_1](start_span)[span_1](end_span)</p>
-            <p><strong>Prerequisites:</strong> Secondary Education Completed & SLBFE Training Verification required[span_2](start_span)[span_2](end_span).</p>
-        </div>
-
-        <h3 style="color: var(--primary-blue);">Available Vacancies & Approved Salaries</h3>
+        <!-- Name updated right here to match GitHub exactly -->
+        <img src="kuwait-landscape.jpg" alt="Kuwait" class="hero-img">
         
-        <div class="vacancy-row">
-            <div>
-                <div class="role-name">House Driver (Kuwait License)[span_3](start_span)[span_3](end_span)</div>
-                <small style="color:#718096;">Experience & Local Driving[span_4](start_span)[span_4](end_span)</small>
+        <h1 class="country-title">
+            <span class="lang-en">Kuwait</span>
+            <span class="lang-si">කුවේට්</span>
+            <span class="lang-ta">குவைத்</span>
+        </h1>
+        
+        <p class="country-description">
+            <span class="lang-en">Build your future in Kuwait, a dynamic nation known for its strong currency, excellent healthcare, and highly secure expatriate communities.</span>
+            <span class="lang-si">ශක්තිමත් මුදල් ඒකකයක්, විශිෂ්ට සෞඛ්‍ය සේවාවක් සහ සුරක්ෂිත පරිසරයක් සහිත කුවේටයේ රැකියා අවස්ථා.</span>
+            <span class="lang-ta">வலுவான நாணயம், சிறந்த சுகாதாரம் மற்றும் பாதுகாப்பான சூழலுடன் குவைத்தில் வேலை வாய்ப்புகள்.</span>
+        </p>
+
+        <div class="job-grid">
+            <div class="job-box">
+                <div class="job-title"><span class="lang-en">Heavy Vehicle Driver</span><span class="lang-si">බර වාහන රියදුරු</span><span class="lang-ta">கனரக வாகன ஓட்டுநர்</span></div>
+                <div class="job-salary">200 KWD</div>
             </div>
-            <div class="salary-badge">140 KD[span_5](start_span)[span_5](end_span)</div>
+            <div class="job-box">
+                <div class="job-title"><span class="lang-en">Healthcare Assistant</span><span class="lang-si">සෞඛ්‍ය සහකාර</span><span class="lang-ta">சுகாதார உதவியாளர்</span></div>
+                <div class="job-salary">180 KWD</div>
+            </div>
+            <div class="job-box">
+                <div class="job-title"><span class="lang-en">Housekeeping Supervisor</span><span class="lang-si">ගෘහ පාලන අධීක්ෂක</span><span class="lang-ta">பராமரிப்பு மேற்பார்வையாளர்</span></div>
+                <div class="job-salary">250 KWD</div>
+            </div>
         </div>
 
-        <div class="vacancy-row">
-            <div>
-                <div class="role-name">House Driver (Gulf Licensed)[span_6](start_span)[span_6](end_span)</div>
-                <small style="color:#718096;">Gulf Driving Experience[span_7](start_span)[span_7](end_span)</small>
-            </div>
-            <div class="salary-badge">130 KD[span_8](start_span)[span_8](end_span)</div>
-        </div>
-
-        <div class="vacancy-row">
-            <div>
-                <div class="role-name">House Driver (S/L License)[span_9](start_span)[span_9](end_span)</div>
-                <small style="color:#718096;">Local Driving Experience[span_10](start_span)[span_10](end_span)</small>
-            </div>
-            <div class="salary-badge">120 KD[span_11](start_span)[span_11](end_span)</div>
-        </div>
-
-        <div class="vacancy-row">
-            <div>
-                <div class="role-name">Worker Domestic - Female[span_12](start_span)[span_12](end_span)</div>
-                <small style="color:#718096;">General Housemaid Quota (300 Vacancies)[span_13](start_span)[span_13](end_span)</small>
-            </div>
-            <div class="salary-badge">120 KD[span_14](start_span)[span_14](end_span)</div>
-        </div>
+        <a href="apply.html" class="apply-btn">
+            <span class="lang-en">Apply for Kuwait</span>
+            <span class="lang-si">අයදුම් කරන්න</span>
+            <span class="lang-ta">விண்ணப்பிக்கவும்</span>
+        </a>
     </div>
 
-    <div class="persistent-bar">
-        <a href="apply.html?dest=Kuwait" class="action-master-btn">APPLY FOR KUWAIT NOW</a>
-    </div>
-
+    <script>
+        document.body.className = 'lang-' + (localStorage.getItem('mrs_lang') || 'en');
+    </script>
 </body>
 </html>
